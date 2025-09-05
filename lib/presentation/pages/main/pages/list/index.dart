@@ -8,6 +8,15 @@ class CListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return const  Center(child: Text("Home Page", style: TextStyle(fontSize: 24, color: CColors.primary)));
-    return CDataTableWidget();
+    // return CDataTableWidget();
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      // body: CDataTableWidget(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: kBottomNavigationBarHeight,),
+        child: CDataTableWidget()
+      ),
+    );
   }
 }

@@ -28,7 +28,7 @@ class _CMainPageState extends State<CMainPage> with SingleTickerProviderStateMix
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [const Color.fromARGB(255, 7, 51, 87), const Color.fromARGB(255, 8, 8, 8)],
+          colors: [const Color.fromARGB(255, 4, 17, 28), const Color.fromARGB(255, 8, 8, 8)],
         ),
       ),      
       child: Scaffold(

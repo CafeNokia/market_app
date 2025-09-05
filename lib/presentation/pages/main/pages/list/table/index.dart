@@ -167,6 +167,7 @@ class _CDataTableWidgetState extends State<CDataTableWidget> {
       context.go('/detail');
     }
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // Filter Bar
         FilterBar(
@@ -204,66 +205,68 @@ class _CDataTableWidgetState extends State<CDataTableWidget> {
 
         // Your main content (e.g., a list of items to filter)
         Expanded(
-          child:
-          DataTable(
-            sortColumnIndex: _sortColumn == 'code' ? 0 : 
-                              _sortColumn == 'name' ? 1 : 
-                              _sortColumn == 'new_price' ? 2 : 
-                              _sortColumn == 'change_rate' ? 3 : 4,
-            sortAscending: _isAscending,
-            showCheckboxColumn: false,
-            columns: [
-              DataColumn(
-                label: const Text('Code', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
-                onSort: (_, __) => _sortData('code'),
-              ),
-              DataColumn(
-                label: const Text('Name', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
-                onSort: (_, __) => _sortData('name'),
-              ),
-              DataColumn(
-                label: const Text('Price', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
-                numeric: true,
-                onSort: (_, __) => _sortData('new_price'),
-              ),
-              DataColumn(
-                label: const Text('Change Rate', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
-                onSort: (_, __) => _sortData('change_rate'),
-              ),
-              DataColumn(
-                label: const Text('Status', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
-                onSort: (_, __) => _sortData('turnover_rate'),
-              ),
-            ],
-            
-            rows: List.generate(_tableData.length, (index) {
-              final data = _tableData[index];
-              final isEvenRow = index % 2 == 0;
-              
-              return DataRow(
-                selected: _selectedRowIndex == index,
-                color: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.selected)) {
-                      // return Theme.of(context).colorScheme.primary;
-                      return const Color.fromARGB(255, 56, 55, 55);
-                    }
-                    return Colors.transparent;
-                    // return isEvenRow ? const Color.fromARGB(255, 50, 43, 43) : const Color.fromARGB(255, 38, 14, 14);
-                  },
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: DataTable(
+              sortColumnIndex: _sortColumn == 'code' ? 0 : 
+                                _sortColumn == 'name' ? 1 : 
+                                _sortColumn == 'new_price' ? 2 : 
+                                _sortColumn == 'change_rate' ? 3 : 4,
+              sortAscending: _isAscending,
+              showCheckboxColumn: false,
+              columns: [
+                DataColumn(
+                  label: const Text('Code', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
+                  onSort: (_, __) => _sortData('code'),
                 ),
-                onSelectChanged: (value) {
-                  _onRowTap(index);
-                },
-                cells: [
-                  DataCell(Text(data['code'], style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255))), onTap: () => _onRowClicked(data)),
-                  DataCell(Text(data['name'])),
-                  DataCell(Text(data['new_price'].toString())),
-                  DataCell(Text(data['change_rate'].toString())),
-                  DataCell(Text(data['float_mkt_cap'].toString())),
-                ],
-              );
-            }),
+                DataColumn(
+                  label: const Text('Name', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
+                  onSort: (_, __) => _sortData('name'),
+                ),
+                DataColumn(
+                  label: const Text('Price', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
+                  numeric: true,
+                  onSort: (_, __) => _sortData('new_price'),
+                ),
+                DataColumn(
+                  label: const Text('Change Rate', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
+                  onSort: (_, __) => _sortData('change_rate'),
+                ),
+                DataColumn(
+                  label: const Text('Status', style: TextStyle(fontWeight: FontWeight.bold, color: CColors.primary)),
+                  onSort: (_, __) => _sortData('turnover_rate'),
+                ),
+              ],
+              
+              rows: List.generate(_tableData.length, (index) {
+                final data = _tableData[index];
+                final isEvenRow = index % 2 == 0;
+                
+                return DataRow(
+                  selected: _selectedRowIndex == index,
+                  color: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.selected)) {
+                        // return Theme.of(context).colorScheme.primary;
+                        return const Color.fromARGB(255, 56, 55, 55);
+                      }
+                      return Colors.transparent;
+                      // return isEvenRow ? const Color.fromARGB(255, 50, 43, 43) : const Color.fromARGB(255, 38, 14, 14);
+                    },
+                  ),
+                  onSelectChanged: (value) {
+                    _onRowTap(index);
+                  },
+                  cells: [
+                    DataCell(Text(data['code'], style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255))), onTap: () => _onRowClicked(data)),
+                    DataCell(Text(data['name'])),
+                    DataCell(Text(data['new_price'].toString())),
+                    DataCell(Text(data['change_rate'].toString())),
+                    DataCell(Text(data['float_mkt_cap'].toString())),
+                  ],
+                );
+              }),
+            ),
           )
         ),
       ]);

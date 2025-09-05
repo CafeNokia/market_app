@@ -49,7 +49,8 @@ class _TransparentAppBarPageState extends State<TransparentAppBarPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [const Color.fromARGB(255, 7, 51, 87), const Color.fromARGB(255, 8, 8, 8)],
+            // colors: [const Color.fromARGB(255, 7, 51, 87), const Color.fromARGB(255, 8, 8, 8)],
+            colors: [const Color.fromARGB(255, 6, 12, 17), const Color.fromARGB(255, 8, 8, 8)],
           ),
         ),
         child: _pages[_currentIndex],
